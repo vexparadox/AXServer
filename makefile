@@ -6,7 +6,14 @@ program_OBJS := ${program_CXX_SRCS:.cpp=.o}
 program_INCLUDE_DIRS := $(shell echo ./serversrc/**/)
 program_HEADERS := $(foreach directory, $(program_INCLUDE_DIRS), -I$(directory))
 program_LIBRARY_DIRS := lib/
-program_LIBRARIES := enet
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+	program_LIBRARIES := enetLinux
+endif
+ifeq ($(UNAME), Darwin)
+	program_LIBRARIES := enetOSX
+endif
+
 
 
 CPPFLAGS += $(program_HEADERS) -Wno-c++11-extensions -Wno-c++11-compat-deprecated-writable-strings -Wno-return-stack-address
