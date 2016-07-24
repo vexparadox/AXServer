@@ -8,6 +8,7 @@
 #ifndef Server_hpp
 #define Server_hpp
 #include "enet/enet.h"
+#include <cstring>
 #include <iostream>
 class Server{
 
