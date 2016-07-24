@@ -6,11 +6,10 @@ Runner::Runner(Server* s){
         std::cout << "Incorrect Server creation, making a default..." << std::endl;
         this->server = new Server();
     }
-
     while(1){
         ENetEvent event;
         /* Wait up to 1000 milliseconds for an event. */
-        while (enet_host_service (server->getHost(), & event, 1000) > 0)
+        while (enet_host_service (server->getHost(), &event, 1000) > 0)
         {
             switch (event.type)
             {
@@ -19,7 +18,7 @@ Runner::Runner(Server* s){
                         event.peer -> address.host,
                         event.peer -> address.port);
                 /* Store any relevant client information here. */
-                // event.peer ->data = `"Client information";
+
                 break;
             case ENET_EVENT_TYPE_RECEIVE:
                 printf ("A packet of length %u containing %s was received from %s on channel %u.\n",
@@ -38,6 +37,7 @@ Runner::Runner(Server* s){
                 event.peer -> data = NULL;
             }
         }
+        server->sendPacket();
     }
 }
 
