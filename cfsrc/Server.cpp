@@ -1,12 +1,18 @@
 #include "Server.hpp"
 
 Server::Server(std::string address, int port, int maxClients, int numChannels, int incBandwidth, int outBandwidth) : maxClients(maxClients), numChannels(numChannels), incBandwidth(incBandwidth), outBandwidth(outBandwidth){
+    //initlialise
+	if (enet_initialize () != 0)
+    { std::cout << "An error occurred while initializing ENet." << std::endl; }
     enet_address_set_host(&serverAddress, address.c_str());
     serverAddress.port = port;
     createHost();
 }
 
 Server::Server(){
+    //initlialise
+	if (enet_initialize () != 0)
+    { std::cout << "An error occurred while initializing ENet." << std::endl; }
     enet_address_set_host(&serverAddress, "127.0.0.1");
     serverAddress.port = 1234;
     createHost();

@@ -1,8 +1,5 @@
 #include "Runner.hpp"
 Runner::Runner(Server* s){
-    //initlialise
-	if (enet_initialize () != 0)
-    { std::cout << "An error occurred while initializing ENet." << std::endl; }
     //if the server is false
     if(s){
         this->server = s;
