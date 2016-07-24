@@ -22,9 +22,7 @@ Runner::Runner(Server* s){
             switch (event.type)
             {
             case ENET_EVENT_TYPE_CONNECT:
-                printf ("A new client connected from %x:%u.\n", 
-                        event.peer -> address.host,
-                        event.peer -> address.port);
+                std::cout << "A new client connected from " << event.peer->address.host << event.peer->address.port << std::endl; 
                 /* Store any relevant client information here. */
 
                 break;
