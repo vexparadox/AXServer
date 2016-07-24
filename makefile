@@ -2,7 +2,7 @@ program_NAME := closedFrameworks
 SHELL := /bin/zsh
 lib_NAME := libcf
 program_CXX_SRCS := $(wildcard cfsrc/*.cpp)
-program_CXX_SRCS += $(shell find gamesrc/ -type f -name '*.cpp')
+program_CXX_SRCS += $(shell find serversrc/ -type f -name '*.cpp')
 program_OBJS := ${program_CXX_SRCS:.cpp=.o}
 program_INCLUDE_DIRS := $(shell echo ./gamesrc/**/)
 program_HEADERS := $(foreach directory, $(program_INCLUDE_DIRS), -I$(directory))
