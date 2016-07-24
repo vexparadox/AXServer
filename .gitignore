@@ -1,6 +1,6 @@
 .DS_STORE
 *.o
-closedFrameworks
+CFServer
 .browse.*
 *.png
 libcf.a

@@ -1,4 +1,4 @@
-program_NAME := closedFrameworks
+program_NAME := CFServer
 SHELL := /bin/zsh
 lib_NAME := libcf
 program_CXX_SRCS := $(wildcard cfsrc/*.cpp)
@@ -21,7 +21,7 @@ all: $(program_NAME) run
 lib: $(lib_NAME)
 
 run:
-	./closedFrameworks
+	./$(program_NAME)
 	
 $(lib_NAME): $(program_OBJS)
 	ar rsc $(lib_NAME).a $(program_OBJS)
