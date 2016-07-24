@@ -1,16 +1,24 @@
 #include "Runner.hpp"
 Runner::Runner(Server* s){
+    //initlialise
+	if (enet_initialize () != 0)
+    { std::cout << "An error occurred while initializing ENet." << std::endl; }
+    //if the server is false
     if(s){
         this->server = s;
     }else{
         std::cout << "Incorrect Server creation, making a default..." << std::endl;
         this->server = new Server();
     }
+
+    //loop for ever!
+    //detect connects and events
     while(1){
         ENetEvent event;
-        /* Wait up to 1000 milliseconds for an event. */
-        while (enet_host_service (server->getHost(), &event, 1000) > 0)
+        //wait upto half a second for an event
+        while (enet_host_service (server->getHost(), &event, 500) > 0)
         {
+            server->sendPacket();
             switch (event.type)
             {
             case ENET_EVENT_TYPE_CONNECT:
@@ -21,12 +29,7 @@ Runner::Runner(Server* s){
 
                 break;
             case ENET_EVENT_TYPE_RECEIVE:
-                printf ("A packet of length %u containing %s was received from %s on channel %u.\n",
-                        event.packet -> dataLength,
-                        event.packet -> data,
-                        event.peer -> data,
-                        event.channelID);
-                /* Clean up the packet now that we're done using it. */
+                std::cout << "A packet of length "<<event.packet->dataLength <<" containing " << event.packet->data <<" was received from " <<event.peer->data<< "on channel "<<event.channelID << "." << std::endl;
                 enet_packet_destroy (event.packet);
                 
                 break;
@@ -37,7 +40,10 @@ Runner::Runner(Server* s){
                 event.peer -> data = NULL;
             }
         }
-        server->sendPacket();
     }
 }
 
+
+Runner::~Runner(){
+    enet_deinitialize();
+}

@@ -17,11 +17,10 @@ class Server{
     int outBandwidth = 0;
     int numChannels = 2;
     ENetHost* host = 0;
-
     void createHost();
     public:
     //create a server with custom settings
-    Server(std::string& address, int port, int maxClients, int numChannels, int incBandwidth, int outBandwidth);
+    Server(std::string address, int port, int maxClients, int numChannels, int incBandwidth, int outBandwidth);
     Server();
     void sendPacket();
     ENetHost* getHost();
