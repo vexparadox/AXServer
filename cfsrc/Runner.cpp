@@ -33,7 +33,7 @@ Runner::Runner(Server* s){
                 break;
             
             case ENET_EVENT_TYPE_DISCONNECT:
-                printf ("%s disconnected.\n", event.peer -> data);
+                std::cout << "Someone disconnected" << std::endl;
                 /* Reset the peer's client information. */
                 event.peer -> data = NULL;
             }
