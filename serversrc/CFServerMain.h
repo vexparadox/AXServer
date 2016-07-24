@@ -9,5 +9,6 @@
 #define CFServerMain_h
 
 #include "../cfsrc/enet/enet.h"
+#include "../cfsrc/Runner.hpp"
 
 #endif /* CoreMain_h */
