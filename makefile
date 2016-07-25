@@ -9,6 +9,8 @@ program_LIBRARY_DIRS := lib/
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
 	program_LIBRARIES := enetLinux
+	CPPFLAGS += -pthread
+	LDFLAGS += -pthread
 endif
 ifeq ($(UNAME), Darwin)
 	program_LIBRARIES := enetOSX
@@ -16,8 +18,8 @@ endif
 
 
 
-CPPFLAGS += -std=c++11 $(program_HEADERS) -Wno-c++11-extensions -Wno-c++11-compat-deprecated-writable-strings -Wno-return-stack-address -pthread
-LDFLAGS +=  $(foreach librarydir,$(program_LIBRARY_DIRS),-L$(librarydir)) -pthread
+CPPFLAGS += -std=c++11 $(program_HEADERS) -Wno-c++11-extensions -Wno-c++11-compat-deprecated-writable-strings -Wno-return-stack-address 
+LDFLAGS +=  $(foreach librarydir,$(program_LIBRARY_DIRS),-L$(librarydir))
 LIBRARIES += $(foreach library,$(program_LIBRARIES),-l$(library)) 
 
 .PHONY: all clean distclean
