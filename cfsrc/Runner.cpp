@@ -7,10 +7,11 @@ Runner::Runner(Server* s){
         std::cout << "Incorrect Server creation, making a default..." << std::endl;
         this->server = new Server();
     }
-
+    this->run.store(true);
+    std::thread inputThread(&Runner::takeInput, this);
     //loop for ever!
     //detect connects and events
-    while(1){
+    while(run.load()){
         ENetEvent event;
         //wait upto half a second for an event
         while (enet_host_service (server->getHost(), &event, 500) > 0)
@@ -36,8 +37,22 @@ Runner::Runner(Server* s){
             }
         }
     }
+    run.store(false);
+    inputThread.join();
 }
 
+void Runner::takeInput(){
+    std::string buffer;
+    while (run.load()){
+        std::cin >> buffer;
+        if (buffer == "exit"){
+            run.store(false);
+        }else{
+            std::cout << "Not a recognised command." << std::endl;
+        }
+    }
+
+}
 
 Runner::~Runner(){
     enet_deinitialize();

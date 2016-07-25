@@ -11,7 +11,6 @@
 #include <cstring>
 #include <iostream>
 class Server{
-
     ENetAddress serverAddress;
     int maxClients = 12;
     int incBandwidth = 0;
