@@ -16,8 +16,8 @@ endif
 
 
 
-CPPFLAGS += -std=c++11 $(program_HEADERS) -Wno-c++11-extensions -Wno-c++11-compat-deprecated-writable-strings -Wno-return-stack-address
-LDFLAGS +=  $(foreach librarydir,$(program_LIBRARY_DIRS),-L$(librarydir))
+CPPFLAGS += -std=c++11 $(program_HEADERS) -Wno-c++11-extensions -Wno-c++11-compat-deprecated-writable-strings -Wno-return-stack-address -pthread
+LDFLAGS +=  $(foreach librarydir,$(program_LIBRARY_DIRS),-L$(librarydir)) -pthread
 LIBRARIES += $(foreach library,$(program_LIBRARIES),-l$(library)) 
 
 .PHONY: all clean distclean
