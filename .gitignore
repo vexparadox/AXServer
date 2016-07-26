@@ -5,3 +5,4 @@ CFServer
 *.png
 libcf.a
 *.swp
+tasks.json
