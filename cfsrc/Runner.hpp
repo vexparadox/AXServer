@@ -20,5 +20,6 @@ class Runner{
     public:
     Runner(Server* s, Controller* c);
     ~Runner();
+    void stopServer();
 };
 #endif

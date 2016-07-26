@@ -14,6 +14,7 @@ Runner::Runner(Server* s, Controller* c){
         std::cout << "Incorrect Server creation, making a default..." << std::endl;
         this->server = new Server();
     }
+    //set running variable to true
     this->run.store(true);
     std::thread inputThread(&Runner::takeInput, this);
     //loop for ever!
@@ -23,7 +24,6 @@ Runner::Runner(Server* s, Controller* c){
         //wait upto half a second for an event
         while (enet_host_service (server->getHost(), &event, 500) > 0)
         {
-            server->sendPacket();
             switch (event.type)
             {
             case ENET_EVENT_TYPE_CONNECT:
@@ -41,6 +41,11 @@ Runner::Runner(Server* s, Controller* c){
                 std::cout << "Someone disconnected" << std::endl;
                 /* Reset the peer's client information. */
                 event.peer -> data = NULL;
+                break;
+
+            case ENET_EVENT_TYPE_NONE:
+            
+                break;
             }
         }
     }
@@ -52,15 +57,14 @@ void Runner::takeInput(){
     std::string buffer;
     while (run.load()){
         std::cin >> buffer;
-        if(buffer == "help"){
-            std::cout << "exit - safely close the server" << std::endl;
-        }else if (buffer == "exit"){
-            run.store(false);
-        }else{
-            std::cout << "Not a recognised command." << std::endl;
+        if(buffer != ""){
+            controller->takeInput(buffer);
         }
     }
+}
 
+void Runner::stopServer(){
+    run.store(false);
 }
 
 Runner::~Runner(){

@@ -10,5 +10,9 @@
 class Controller{
     public:
     Controller();
+    virtual void clientConnected(){};
+    virtual void clientDisconnected(){};
+    virtual void packetRecieve(){};
+    virtual void takeInput(std::string s){};
 };
 #endif
