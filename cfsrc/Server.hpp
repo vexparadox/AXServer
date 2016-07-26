@@ -22,6 +22,7 @@ class Server{
     //create a server with custom settings
     Server(std::string address, int port, int maxClients, int numChannels, int incBandwidth, int outBandwidth);
     Server();
+    ~Server();
     void sendPacket();
     ENetHost* getHost();
 

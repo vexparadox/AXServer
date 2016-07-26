@@ -18,6 +18,10 @@ Server::Server(){
     createHost();
 }
 
+Server::~Server(){
+    delete host;
+}
+
 void Server::createHost(){
     host = enet_host_create (&serverAddress, 32, 2, 0, 0);
     if (!host) { std::cout << "An error occurred while trying to create the server host." << std::endl; }

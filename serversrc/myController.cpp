@@ -1,15 +1,5 @@
-//
-//  myController.hpp
-//  CFServer
-//
-//  Copyright © 2016 WillMeaton.uk. All rights reserved.
-//
+#include "myController.hpp"
 
-#ifndef myController_hpp
-#define myController_hpp
-#include "CFServerMain.h"
-class myController : public Controller{
-    public:
-    myController();
-};
-#endif
+myController::myController(){
+
+}

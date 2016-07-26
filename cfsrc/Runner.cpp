@@ -1,6 +1,13 @@
 #include "Runner.hpp"
-Runner::Runner(Server* s){
-    //if the server is false
+Runner::Runner(Server* s, Controller* c){
+    //if the controller is a null
+    if(c){
+        this->controller = c;
+    }else{
+        std::cout << "A valid controller is required." << std::endl;
+        std::exit(1);
+    }
+    //if the server is a null
     if(s){
         this->server = s;
     }else{
@@ -58,4 +65,6 @@ void Runner::takeInput(){
 
 Runner::~Runner(){
     enet_deinitialize();
+    delete server;
+    delete controller;
 }
