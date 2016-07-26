@@ -45,7 +45,7 @@ void Runner::takeInput(){
     std::string buffer;
     while (run.load()){
         std::cin >> buffer;
-        if(buffers == "help"){
+        if(buffer == "help"){
             std::cout << "exit - safely close the server" << std::endl;
         }else if (buffer == "exit"){
             run.store(false);
