@@ -11,6 +11,7 @@
 class myController : public Controller{
     public:
     myController(){};
+    void setup();
     void takeInput(std::string s);
 };
 #endif
