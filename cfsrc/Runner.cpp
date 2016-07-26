@@ -45,7 +45,9 @@ void Runner::takeInput(){
     std::string buffer;
     while (run.load()){
         std::cin >> buffer;
-        if (buffer == "exit"){
+        if(buffers == "help"){
+            std::cout << "exit - safely close the server" << std::endl;
+        }else if (buffer == "exit"){
             run.store(false);
         }else{
             std::cout << "Not a recognised command." << std::endl;
