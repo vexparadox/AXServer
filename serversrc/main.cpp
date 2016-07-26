@@ -11,6 +11,6 @@ int main(int argc, char *argv[])
     //Servers will auto to 127.0.0.1:1234 with 12 max clients, 2 channels,  and unlimited incoming and outgoing bandwidth 
     //you can define a custom one new Server("192.168.0.1", 80, 3, 2, 256, 512);
     //Server(std::string& address, int port, int maxClients, int numChannels, int incBandwidth, int outBandwidth);
-    Runner(new Server("192.168.0.6", 1234, 3, 2, 0, 0));
+    Runner(new Server("178.62.6.47", 1234, 3, 2, 0, 0));
     return 0;
 }
