@@ -10,6 +10,7 @@
 #include "CFServerMain.h"
 class myController : public Controller{
     public:
-    myController();
+    myController(){};
+    void takeInput(std::string s);
 };
 #endif

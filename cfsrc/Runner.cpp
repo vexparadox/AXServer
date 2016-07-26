@@ -3,6 +3,8 @@ Runner::Runner(Server* s, Controller* c){
     //if the controller is a null
     if(c){
         this->controller = c;
+        c->runner = this;
+        c->setup();
     }else{
         std::cout << "A valid controller is required." << std::endl;
         std::exit(1);
@@ -27,19 +29,20 @@ Runner::Runner(Server* s, Controller* c){
             switch (event.type)
             {
             case ENET_EVENT_TYPE_CONNECT:
+                controller->clientConnected(event);            
                 std::cout << "A new client connected from " << event.peer->address.host << event.peer->address.port << std::endl; 
                 /* Store any relevant client information here. */
 
                 break;
             case ENET_EVENT_TYPE_RECEIVE:
+                controller->packetRecieve(event);
                 std::cout << "A packet of length "<<event.packet->dataLength <<" containing " << event.packet->data <<" was received from " <<event.peer->data<< "on channel "<<event.channelID << "." << std::endl;
                 enet_packet_destroy (event.packet);
                 
                 break;
             
             case ENET_EVENT_TYPE_DISCONNECT:
-                std::cout << "Someone disconnected" << std::endl;
-                /* Reset the peer's client information. */
+                controller->clientDisconnected(event);
                 event.peer -> data = NULL;
                 break;
 
