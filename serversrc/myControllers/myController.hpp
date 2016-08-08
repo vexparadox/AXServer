@@ -7,11 +7,12 @@
 
 #ifndef myController_hpp
 #define myController_hpp
-#include "CFServerMain.h"
+#include <CFServerMain.h>
 class myController : public Controller{
     public:
     myController(){};
     void setup();
     void takeInput(std::string s);
+    void clientConnected(const ENetEvent& e);
 };
 #endif

@@ -4,8 +4,8 @@
 //
 //  Copyright © 2015 WillMeaton.uk. All rights reserved.
 //
-#include "CFServerMain.h"
-#include "myController.hpp"
+#include <CFServerMain.h>
+#include <myController.hpp>
 int main(int argc, char *argv[])
 {
     //start a new runner a server

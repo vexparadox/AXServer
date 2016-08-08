@@ -13,3 +13,8 @@ void myController::takeInput(std::string s){
         std::cout << "exit - to stop the server safely" << std::endl;
     }
 }
+
+void myController::clientConnected(const ENetEvent& e){
+    runner->stopServer();
+    std::cout << "A new client connected from " << e.peer->address.host << e.peer->address.port << std::flush; 
+}

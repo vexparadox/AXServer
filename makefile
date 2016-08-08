@@ -1,11 +1,3 @@
-program_NAME := CFServer
-lib_NAME := libcf
-program_CXX_SRCS := $(wildcard cfsrc/*.cpp)
-program_CXX_SRCS += $(shell find serversrc/ -type f -name '*.cpp')
-program_OBJS := ${program_CXX_SRCS:.cpp=.o}
-program_INCLUDE_DIRS := $(shell echo ./serversrc/**/)
-program_HEADERS := $(foreach directory, $(program_INCLUDE_DIRS), -I$(directory))
-program_LIBRARY_DIRS := lib/
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
 	program_LIBRARIES := enetLinux
@@ -14,9 +6,17 @@ ifeq ($(UNAME), Linux)
 endif
 ifeq ($(UNAME), Darwin)
 	program_LIBRARIES := enetOSX
+	SHELL := /bin/zsh
 endif
-
-
+program_NAME := CFServer
+lib_NAME := libcf
+program_CXX_SRCS := $(wildcard cfsrc/*.cpp)
+program_CXX_SRCS += $(shell find serversrc/ -type f -name '*.cpp')
+program_OBJS := ${program_CXX_SRCS:.cpp=.o}
+program_INCLUDE_DIRS := $(shell echo ./serversrc/**/)
+program_INCLUDE_DIRS += ./serversrc/
+program_HEADERS := $(foreach directory, $(program_INCLUDE_DIRS), -I$(directory))
+program_LIBRARY_DIRS := lib/
 
 CPPFLAGS += -std=c++11 $(program_HEADERS) -Wno-c++11-extensions -Wno-c++11-compat-deprecated-writable-strings -Wno-return-stack-address 
 LDFLAGS +=  $(foreach librarydir,$(program_LIBRARY_DIRS),-L$(librarydir))

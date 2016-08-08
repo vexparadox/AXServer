@@ -24,28 +24,26 @@ Runner::Runner(Server* s, Controller* c){
     while(run.load()){
         ENetEvent event;
         //wait upto half a second for an event
-        while (enet_host_service (server->getHost(), &event, 500) > 0)
+        while (enet_host_service (server->getHost(), &event, 100) > 0)
         {
             switch (event.type)
             {
             case ENET_EVENT_TYPE_CONNECT:
-                controller->clientConnected(event);            
-                std::cout << "A new client connected from " << event.peer->address.host << event.peer->address.port << std::endl; 
+            {
+                std::thread n(&Controller::clientConnected, controller, std::ref(event));
+                n.join();            
                 /* Store any relevant client information here. */
-
+            }
                 break;
             case ENET_EVENT_TYPE_RECEIVE:
                 controller->packetRecieve(event);
                 std::cout << "A packet of length "<<event.packet->dataLength <<" containing " << event.packet->data <<" was received from " <<event.peer->data<< "on channel "<<event.channelID << "." << std::endl;
                 enet_packet_destroy (event.packet);
-                
                 break;
-            
             case ENET_EVENT_TYPE_DISCONNECT:
                 controller->clientDisconnected(event);
                 event.peer -> data = NULL;
                 break;
-
             case ENET_EVENT_TYPE_NONE:
             
                 break;
@@ -67,6 +65,7 @@ void Runner::takeInput(){
 }
 
 void Runner::stopServer(){
+    std::cout << "Stopping server..." << std::endl;
     run.store(false);
 }
 
